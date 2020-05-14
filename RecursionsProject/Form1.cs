@@ -37,15 +37,15 @@ namespace RecursionsProject
                 if (recursive == nonRecursive)
                 {
                     //In order to get the right suffix to the number
-                    if (totalNumber % 10 == 1)
+                    if (inputNumber % 10 == 1)
                     {
                         outputLabel.Text = "The " + inputNumber + "st number in the fibonnaci sequence is " + recursive + ".";
                     }
-                    else if (totalNumber % 10 == 2)
+                    else if (inputNumber % 10 == 2)
                     {
                         outputLabel.Text = "The " + inputNumber + "nd number in the fibonnaci sequence is " + recursive + ".";
                     }
-                    else if (totalNumber % 10 == 3)
+                    else if (inputNumber % 10 == 3)
                     {
                         outputLabel.Text = "The " + inputNumber + "rd number in the fibonnaci sequence is " + recursive + ".";
                     }
@@ -55,7 +55,7 @@ namespace RecursionsProject
                     }
 
                     //Because english is weird
-                    if (totalNumber == 11 || totalNumber == 12 || totalNumber == 13)
+                    if (inputNumber == 11 || inputNumber == 12 || inputNumber == 13)
                     {
                         outputLabel.Text = "The " + inputNumber + "th number in the fibonnaci sequence is " + recursive + ".";
                     }
