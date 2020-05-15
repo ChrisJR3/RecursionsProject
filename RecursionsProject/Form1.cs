@@ -6,16 +6,23 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace RecursionsProject
 {
     public partial class Form1 : Form
     {
+        //ints
         int inputNumber;
         int totalNumber;
         int recursive;
         int nonRecursive;
+
+        //stopwatches
+        Stopwatch recursiveWatch = new Stopwatch();
+        Stopwatch nonRecursiveWatch = new Stopwatch();
+        Stopwatch sumWatch = new Stopwatch();
 
         public Form1()
         {
@@ -31,8 +38,18 @@ namespace RecursionsProject
             else
             {
                 inputNumber = Convert.ToInt32(inputTextBox.Text);
+
+                recursiveWatch.Start();
                 recursive = recursiveFibonnaci(inputNumber);
+                recursiveWatch.Stop();
+
+                nonRecursiveWatch.Start();
                 nonRecursive = nonRecursiveFibonnaci(inputNumber);
+                nonRecursiveWatch.Stop();
+
+                //turning them into timespan objects
+                TimeSpan recursiveElapsed = recursiveWatch.Elapsed; 
+                TimeSpan nonRecursiveElapsed = nonRecursiveWatch.Elapsed;
 
                 if (recursive == nonRecursive)
                 {
@@ -63,7 +80,13 @@ namespace RecursionsProject
                 else
                 {
                     outputLabel.Text = "Something went wrong.";
-                } 
+                }
+
+                outputLabel.Text += "\n" + "Recursive took " + Convert.ToString(recursiveElapsed.TotalMilliseconds) + " millisecond(s).";
+                outputLabel.Text += "\n" + "Non recursive took " + Convert.ToString(nonRecursiveElapsed.TotalMilliseconds) + " millisecond(s).";
+
+                recursiveWatch.Reset();
+                nonRecursiveWatch.Reset();
             }
         }
 
@@ -76,10 +99,18 @@ namespace RecursionsProject
             else
             {
                 inputNumber = Convert.ToInt32(inputTextBox.Text);
+
+                sumWatch.Start();
                 totalNumber = Sum(inputNumber);
+                sumWatch.Stop();
+
+                //turning that into a timespan object
+                TimeSpan sumElapsed = sumWatch.Elapsed;
 
                 outputLabel.Text = "The sum of all values up to " + inputNumber + " is " + totalNumber + ".";
-            }
+                outputLabel.Text += "\n" + "That took " + Convert.ToString(sumElapsed.TotalMilliseconds) + " millisecond(s).";
+                sumWatch.Reset();
+            }            
         }
 
         public int recursiveFibonnaci(int n)
@@ -117,14 +148,14 @@ namespace RecursionsProject
 
         public int Sum(int n)
         {
-            int totalSum = 0;
-
-            while (n > 0)
+            if (n == 0 || n == 1)
             {
-                totalSum = totalSum + n;
-                n = n - 1;
+                return n;
             }
-            return totalSum;
+            else
+            {
+                return (n + Sum(n - 1));
+            }
         }
     }
 }
